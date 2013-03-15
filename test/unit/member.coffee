@@ -24,19 +24,43 @@ test 'foreach loop over', ->
 		}
 	'''
 
-test 'basic member expression', ->
+test 'single value expression', ->
 	assert.compileTo '''
 	 $list = 0 1 2;
-	 .test {
-	   margin: $list[1] * 1em;
+	 body {
+	   -foo: $list[1];
 	 }
 	''', '''
-		.test {
-			margin: 1em;
+		body {
+			-foo: 1;
 		}
 	'''
 
-test 'complex member expression', ->
+test 'negative value expression', ->
+	assert.compileTo '''
+	 $list = 0 1 2;
+	 body {
+	   -foo: $list[-1];
+	 }
+	''', '''
+		body {
+			-foo: 2;
+		}
+	'''
+
+test 'null member expression', ->
+	assert.compileTo '''
+	 $list = 0 1 2;
+	 body {
+	   -foo: $list[3];
+	 }
+	''', '''
+		body {
+			-foo: null;
+		}
+	'''
+
+test 'range expression', ->
 	assert.compileTo '''
 	 $list = 0 1 2;
 	 .test {
