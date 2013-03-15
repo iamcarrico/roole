@@ -11,9 +11,9 @@ TEST_FILES = \
 	test/unit/dimension.coffee \
 	test/unit/url.coffee \
 	test/unit/color.coffee \
-	test/unit/call.coffee \
 	test/unit/function.coffee \
 	test/unit/list.coffee \
+	test/unit/member.coffee \
 	test/unit/addition.coffee \
 	test/unit/subtraction.coffee \
 	test/unit/multiplication.coffee \
