@@ -7,20 +7,20 @@ test 'foreach loop over', ->
 	 $list = 0 1 2;
 	 @for $num in $list {
     .icon-$num {
-      margin-right: $num * 1em;
+      -foo: $num * 1em;
     }
   }
 	''', '''
 		.icon-0 {
-			margin-right: 0em;
+			-foo: 0em;
 		}
 
 		.icon-1 {
-			margin-right: 1em;
+			-foo: 1em;
 		}
 
 		.icon-2 {
-			margin-right: 2em;
+			-foo: 2em;
 		}
 	'''
 
@@ -60,14 +60,62 @@ test 'null member expression', ->
 		}
 	'''
 
+test 'list within a list', ->
+	assert.compileTo '''
+	 $list = 0 (a b c) 2;
+	 body {
+	   -foo: $list[1];
+	 }
+	''', '''
+		body {
+			-foo: a b c;
+		}
+	'''
+
 test 'range expression', ->
 	assert.compileTo '''
 	 $list = 0 1 2;
-	 .test {
-	   margin-right: $list[1..2];
+	 body {
+	   -foo: $list[1..2];
 	 }
 	''', '''
-		.test {
-			margin-right: 1 2;
+		body {
+			-foo: 1 2;
+		}
+	'''
+
+test 'negative range', ->
+	assert.compileTo '''
+	 $list = 0 1 2;
+	 body {
+	   -foo: $list[-1..0];
+	 }
+	''', '''
+		body {
+			-foo: 2 1 0;
+		}
+	'''
+
+test 'inverse range', ->
+	assert.compileTo '''
+	 $list = 0 1 2;
+	 body {
+	   -foo: $list[2..0];
+	 }
+	''', '''
+		body {
+			-foo: 2 1 0;
+		}
+	'''
+
+test 'single range', ->
+	assert.compileTo '''
+	 $list = 0 1 2;
+	 body {
+	   -foo: $list[1...2];
+	 }
+	''', '''
+		body {
+			-foo: 1;
 		}
 	'''
