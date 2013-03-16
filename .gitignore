@@ -1,3 +1,21 @@
+# General rules for node.js projects
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+
+# Rules specific to roole.js
 /coverage
 /dist/roole.js
 /dist/roole.min.js
